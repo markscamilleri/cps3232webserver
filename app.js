@@ -5,17 +5,34 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var http = require('http');
 var https = require('https');
 var fs = require('fs');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+
+var httpApp = express();
 var app = express();
+
+
+// HTTPS options
+var httpsOptions = {
+    cert: fs.readFileSync('./ssl/webserver.cert.pem'),
+    ca: fs.readFileSync('./ssl/ca-chain.cert.pem')
+};
+
+// http redirect
+httpApp.set('port', process.env.PORT || 80);
+httpApp.get("*", function (req, res, next) {
+   res.redirect("https://" + req.headers.host + "/" + req.path);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.set('port', process.env.PORT || 443);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -46,13 +63,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var secureServer = https.createServer({
-    key: fs.readFileSync('./ssl/webserver.key.pem'),
-    cert: fs.readFileSync('./ssl/webserver.cert.pem'),
-    ca: fs.readFileSync('./ssl/ca-chain.cert.pem'),
-    requestCert: true,
-    rejectUnauthorized: true
-}, app).listen('8443', function() {console.log("Listening on port 8443");});
+http.createServer(httpApp).listen(httpApp.get('port'),
+    function () {
+        console.log('Express HTTP server listening on port' + httpApp.get('port'))
+    });
 
-
-module.exports = secureServer;
+https.createServer(httpsOptions, app).listen(app.get('port'), function() {
+    console.log('Express HTTPS server listening on port ' + app.get('port'));
+});
