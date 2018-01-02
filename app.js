@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var http = require('http');
 var https = require('https');
 var fs = require('fs');
 
@@ -12,10 +13,12 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-const PORT = 8443;
+const HTTP_PORT = 3000;
+const HTTPS_PORT = 8443;
 
 // HTTPS options
 var httpsOptions = {
+    ket: fs.readFileSync('./ssl/webserver.key.pem'),
     cert: fs.readFileSync('./ssl/webserver.cert.pem'),
     ca: fs.readFileSync('./ssl/ca-chain.cert.pem')
 };
@@ -24,7 +27,7 @@ var httpsOptions = {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.set('port', process.env.PORT || PORT);
+app.set('port', process.env.PORT || HTTPS_PORT);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -55,8 +58,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-https.createServer(httpsOptions, app).listen(PORT, function() {
-    console.log('Express HTTPS server listening on port ' + PORT);
+http.createServer(app).listen(HTTP_PORT, function () {
+    console.log('Express HTTP server listening on port ' + HTTP_PORT);
+});
+
+https.createServer(httpsOptions, app).listen(HTTPS_PORT, function() {
+    console.log('Express HTTPS server listening on port ' + HTTPS_PORT);
 });
 
 module.exports = app;
