@@ -47,7 +47,7 @@ app.use(function(err, req, res, next) {
 });
 
 var secureServer = https.createServer({
-    key: fs.readFileSync('./ssl/webserver.key.pem'),
+//    key: fs.readFileSync('./ssl/webserver.key.pem'),
     cert: fs.readFileSync('./ssl/webserver.cert.pem'),
     ca: fs.readFileSync('./ssl/ca-chain.cert.pem'),
     requestCert: true,
