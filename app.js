@@ -52,7 +52,7 @@ var secureServer = https.createServer({
     ca: fs.readFileSync('./ssl/ca-chain.cert.pem'),
     requestCert: true,
     rejectUnauthorized: true
-}, app).listen('8443');
+}, app).listen('8443', function() {console.log("Listening on port 8443");});
 
 
 module.exports = secureServer;
