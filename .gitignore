@@ -1,4 +1,4 @@
-ssl/ #SSL Folder
+ssl/* #SSL Folder
 
 #Webstorm
 *.iml
