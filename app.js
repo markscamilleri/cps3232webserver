@@ -13,7 +13,6 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-const HTTP_PORT = 3000;
 const HTTPS_PORT = 8443;
 
 // HTTPS options
@@ -56,10 +55,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
-
-http.createServer(app).listen(HTTP_PORT, function () {
-    console.log('Express HTTP server listening on port ' + HTTP_PORT);
 });
 
 https.createServer(httpsOptions, app).listen(HTTPS_PORT, function() {
