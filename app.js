@@ -12,8 +12,6 @@ var fs = require('fs');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
-
-var httpApp = express();
 var app = express();
 
 
@@ -23,11 +21,6 @@ var httpsOptions = {
     ca: fs.readFileSync('./ssl/ca-chain.cert.pem')
 };
 
-// http redirect
-httpApp.set('port', process.env.PORT || 80);
-httpApp.get("*", function (req, res, next) {
-   res.redirect("https://" + req.headers.host + "/" + req.path);
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -63,11 +56,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-http.createServer(httpApp).listen(httpApp.get('port'),
-    function () {
-        console.log('Express HTTP server listening on port' + httpApp.get('port'))
-    });
-
 https.createServer(httpsOptions, app).listen(app.get('port'), function() {
     console.log('Express HTTPS server listening on port ' + app.get('port'));
 });
+
+module.exports = app;
