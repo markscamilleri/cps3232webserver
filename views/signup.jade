@@ -1,9 +1,9 @@
 include utils/head
 include utils/bodyWithMenu
-div(class="container)
+div(class="container")
     div(class="col-sm-6 col-sm-offset-3")
         h1
-            span(class="fa fa-sign-in") Sign Up
+            span(class="fa fa-sign-in")  Sign Up
 
         if(message.length > 0)
             div(class="alert alert-danger") #{message}
@@ -18,8 +18,8 @@ div(class="container)
             button(type="submit" class="btn btn-warning btn-lg") Sign Up
         hr
 
-        p Already have an account?
+        p Already have an account?&nbsp;
             a(href="/login") Login
-            |  or go
+            |  or go&nbsp
             a(href="/") home
             | .
