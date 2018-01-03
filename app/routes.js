@@ -2,12 +2,12 @@ module.exports = function(app, passport) {
 
     // Home Page
     app.get('/', function(req, res) {
-        res.render(('index.jade'));
+        res.render(('index'));
     });
 
     // Login Page
     app.get('/login', function(req, res) {
-       res.render('login.jade', {message: req.flash('loginMessage')});
+       res.render('login', {message: req.flash('loginMessage')});
     });
 
     // Process the login form
@@ -17,7 +17,7 @@ module.exports = function(app, passport) {
 
     // Signup page
     app.get('/signup', function (req, res) {
-        res.render('signup.jade', {message: req.flash('signupMessage')});
+        res.render('signup', {message: req.flash('signupMessage')});
     });
 
     // Process the signup form
@@ -30,7 +30,7 @@ module.exports = function(app, passport) {
 
     // Profile page
     app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile.jade', {
+        res.render('profile', {
             user : req.user // get the user out of session and pass to template
         });
     });

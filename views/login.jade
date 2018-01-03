@@ -1,28 +1,28 @@
 include utils/head
 include utils/bodyWithMenu
-    div(class="container")
-        div(class="col-sm-6 col-sm-offset-3")
-            h1
-                span(class="fa fa-sign-in") Login
+div(class="container")
+    div(class="col-sm-6 col-sm-offset-3")
+        h1
+            span(class="fa fa-sign-in") Login
 
-            // show any messages that come back with authentication
-            if(message > 0)
-                div(class="alert alert-danger")
-                    #{message}
+        // show any messages that come back with authentication
+        if(message > 0)
+            div(class="alert alert-danger")
+                #{message}
 
-            form(action="/login" method="post")
-                div(class="form-group")
-                    label(for="username") Username
-                    input(type="text" class="form-control" name="username" id="username")
-                div(class="form-group")
-                    label(for="password") Password
-                    input(type="password" class="form-control" name="password" id="password")
+        form(action="/login" method="post")
+            div(class="form-group")
+                label(for="username") Username
+                input(type="text" class="form-control" name="username" id="username")
+            div(class="form-group")
+                label(for="password") Password
+                input(type="password" class="form-control" name="password" id="password")
 
-                button(type="submit" class="btn btn-warning btn-lg")
+            button(type="submit" class="btn btn-warning btn-lg")
 
-            hr
-            p Need an account?
-                a(href="/signup") Sign Up
-            | or go
-                a(href="/") Home
-            | .
+        hr
+        p Need an account?
+            a(href="/signup") Sign Up
+        | or go
+            a(href="/") Home
+        | .
