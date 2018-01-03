@@ -1,3 +1,5 @@
 include utils/head
 include utils/bodyWithMenu
-div(class="jumbotron text-center") Oops, the server encountered an error
+div(class="jumbotron text-center") Oops, the server encountered #{status} error
+    br
+    span.fa.fa-exclamation-triangle #{statusCode} - #{message}
