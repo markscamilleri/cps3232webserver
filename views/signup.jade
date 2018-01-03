@@ -6,7 +6,7 @@ div(class="container")
             span(class="fa fa-sign-in")  Sign Up
 
         if(message.length > 0)
-            div(class="alert alert-danger") #{message}
+            div(class="alert alert-danger alert-dismissable fade in") #{message}
 
         form(action="/signup" method="post")
             div(class="form-group")
