@@ -21,9 +21,6 @@ var http = require('http');
 var https = require('https');
 var fs = require('fs');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-
 var app = express();
 const HTTP_PORT = 3000;
 const HTTPS_PORT = 8443;
