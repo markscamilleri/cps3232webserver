@@ -1,0 +1,22 @@
+include utils/head
+include utils/bodyWithMenu
+
+div.container
+    div.page-header.text-center
+        h1
+            span.fa.fa-anchor Profile Page
+        |  &nbsp;
+        a(href="/logout").btn.btn-default.btn-sm Logout
+
+    div.row
+        div.col-sm-6
+            div.well
+                h3
+                    span.fa.fa-user Account Information
+                p
+                    strong id
+                    | : #{user._id}
+                    strong username
+                    | : #{user.local.username}
+                    strong password
+                    | : Not shown for security purposes
