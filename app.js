@@ -28,7 +28,7 @@ const HTTPS_PORT = 8443;
 // HTTPS options
 
 var ca = [];
-var chain = fs.readFileSync('./ssl/ca-chain.cert.pem');
+var chain = fs.readFileSync('./ssl/ca-chain.cert.pem').toString();
 chain = chain.split("\n");
 var cert = [];
 
@@ -43,9 +43,10 @@ for(var line in chain){
 }
 
 var httpsOptions = {
-//    key: fs.readFileSync('./ssl/webserver.key.pem'),
+    key: fs.readFileSync('./ssl/webserver.key.pem'),
     cert: fs.readFileSync('./ssl/webserver.cert.pem'),
-    ca: ca
+    ca: ca,
+    passphrase: "cps3232"	
 };
 
 // Connect to database
