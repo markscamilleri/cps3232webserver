@@ -16,7 +16,7 @@ div.container
                 p
                     strong id
                     | : #{user._id}
-                    strong username
+                    strong Username
                     | : #{user.local.username}
-                    strong password
-                    | : Not shown for security purposes
+                    strong Password Hash
+                    | : #{user.local.password}
