@@ -60,7 +60,9 @@ app.use(session({
         db: 'cps3232 ', // optional
         collection: 'sessions', // optional
         expire: 86400 // optional
-    })
+    }),
+    resave: true,
+    saveUninitialized: true
 }));
 
 app.use(passport.initialize());
@@ -91,9 +93,9 @@ app.use(function(err, req, res, next) {
 });
 
 // Launch http server
-http.createServer(app).listen(HTTP_PORT, function (req, res) {
-    res.redirect('https://' + req.headers.host + ":" + HTTPS_PORT + req.url);
-});
+http.createServer(function(req, res) {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'].replace(HTTP_PORT,HTTPS_PORT) + req.url });
+}).listen(HTTP_PORT);
 
 // Launch https server
 https.createServer(httpsOptions, app).listen(HTTPS_PORT, function() {
