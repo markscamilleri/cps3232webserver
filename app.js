@@ -26,10 +26,26 @@ const HTTP_PORT = 3000;
 const HTTPS_PORT = 8443;
 
 // HTTPS options
+
+var ca = [];
+var chain = fs.readFileSync('./ssl/ca-chain.cert.pem');
+chain = chain.split("\n");
+var cert = [];
+
+for(var line in chain){
+    if (line.length !== 0) {
+        cert.push(line);
+        if (line.match("/-END CERTIFICATE-/")) {
+            ca.push(cert.join("\n"));
+            cert = [];
+        }
+    }
+}
+
 var httpsOptions = {
-    key: fs.readFileSync('./ssl/webserver.key.pem'),
+//    key: fs.readFileSync('./ssl/webserver.key.pem'),
     cert: fs.readFileSync('./ssl/webserver.cert.pem'),
-    ca: fs.readFileSync('./ssl/ca-chain.cert.pem')
+    ca: ca
 };
 
 // Connect to database
