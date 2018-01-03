@@ -27,7 +27,7 @@ const HTTPS_PORT = 8443;
 
 // HTTPS options
 var httpsOptions = {
-    ket: fs.readFileSync('./ssl/webserver.key.pem'),
+    key: fs.readFileSync('./ssl/webserver.key.pem'),
     cert: fs.readFileSync('./ssl/webserver.cert.pem'),
     ca: fs.readFileSync('./ssl/ca-chain.cert.pem')
 };
