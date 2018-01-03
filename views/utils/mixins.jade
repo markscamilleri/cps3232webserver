@@ -14,11 +14,11 @@ mixin nav(name, id, style)
                 block
 
 mixin nav_item(href)
-    li(class=(window.location.pathname === href ? "active" : "" )): a( href=href )
+    li: a( href=href )
         block
 
 mixin nav_item_dropdown(href)
-    li(class=["dropdown", window.location.pathname === href ? "active" : "" ])
+    li(class="dropdown")
         a.dropdown-toggle( href=href, data-toggle="dropdown", role="button", aria-expanded="false" )= attributes.label
         span.caret
         ul.dropdown-menu( role="menu" )
