@@ -48,8 +48,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Passport stuff
-app.use(session({secret: 'thisismysecret123' }));
+// Express-Session Stuff
+app.use(session({
+    secret: 'thisismysecret123' ,
+    cookie: { maxAge: 2628000000 },
+    store: new (require('express-sessions'))({
+        storage: 'mongodb',
+        instance: mongoose, // optional
+        host: 'localhost', // optional
+        port: 27017, // optional
+        db: 'cps3232 ', // optional
+        collection: 'sessions', // optional
+        expire: 86400 // optional
+    })
+}));
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
