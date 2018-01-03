@@ -7,7 +7,7 @@ module.exports = function(app, passport) {
 
     // Login Page
     app.get('/login', function(req, res) {
-       res.render('login', {message: req.flash('loginMessage')});
+       res.render(('login'), {message: req.flash('loginMessage')});
     });
 
     // Process the login form
@@ -17,14 +17,14 @@ module.exports = function(app, passport) {
 
     // Signup page
     app.get('/signup', function (req, res) {
-        res.render('signup', {message: req.flash('signupMessage')});
+        res.render(('signup'), {message: req.flash('signupMessage')});
     });
 
     // Process the signup form
     app.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/profile', // redirect to the secure profile section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
+        failureFlash : true // allow flsash messages
     }));
 
 
