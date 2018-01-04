@@ -9,7 +9,7 @@ div(class="container")
         if(message.length > 0)
             div(class="alert alert-danger alert-dismissable fade in") #{message}
 
-        form(action="/login" method="post")
+        form(action="/login" method="post" enctype="application/json")
             div(class="form-group")
                 label(for="username") Username
                 input(type="text" class="form-control" name="username" id="username")
