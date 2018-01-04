@@ -9,7 +9,7 @@ div(class="container")
         if(message.length > 0)
             div(class="alert alert-danger alert-dismissable fade in") #{message}
 
-        form(action="/login" method="post" enctype="application/json")
+        form
             div(class="form-group")
                 label(for="username") Username
                 input(type="text" class="form-control" name="username" id="username")
@@ -17,7 +17,7 @@ div(class="container")
                 label(for="password") Password
                 input(type="password" class="form-control" name="password" id="password")
 
-            button(type="submit" class="btn btn-warning btn-lg") Log in
+            button(type="submit" onclick="javascript:submitForm()" class="btn btn-warning btn-lg") Log in
 
         hr
         p Need an account?&nbsp;
@@ -25,3 +25,16 @@ div(class="container")
             |  or go&nbsp;
             a(href="/") Home
             | .
+
+
+script(type="text/javascript")
+    | function submitForm(){
+    |     var data = {
+    |       username: document.getElementById("username").value,
+    |       password: document.getElementById("password").value
+    |     };
+    |     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+    |     xmlhttp.open("POST", "/login");
+    |     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    |     xmlhttp.send(JSON.stringify(data));
+    | }
