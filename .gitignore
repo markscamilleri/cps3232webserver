@@ -1,5 +1,4 @@
 ssl/* #SSL Folder
-package-lock.json #Package-lock
 
 #Webstorm
 *.iml
