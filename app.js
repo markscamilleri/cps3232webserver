@@ -109,7 +109,7 @@ app.use(function(err, req, res, next) {
   res.render('error', {status: err.status || 500, statusCode: err.statusCode || 500, message: err.message});
 });
 
-/*// Launch http server
+// Launch http server
 http.createServer(function(req, res) {
     res.writeHead(301, { "Location": "https://" + req.headers['host'].replace(HTTP_PORT,HTTPS_PORT) + req.url });
 }).listen(HTTP_PORT);
@@ -118,10 +118,11 @@ http.createServer(function(req, res) {
 https.createServer(httpsOptions, app).listen(HTTPS_PORT, function() {
     console.log('Express HTTPS server listening on port ' + HTTPS_PORT);
 });
-*/
 
+/*
 http.createServer(app).listen(HTTP_PORT, function() {
 	console.log('Express HTTP server listening on port ' + HTTP_PORT);
 });
+*/
 
 module.exports = app;
