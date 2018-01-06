@@ -46,7 +46,9 @@ var httpsOptions = {
     key: fs.readFileSync('./ssl/webserver.key.pem'),
     cert: fs.readFileSync('./ssl/webserver.cert.pem'),
     ca: ca,
-    passphrase: "cps3232"	
+    passphrase: "cps3232",
+    requestCert: true,
+    rejectUnauthorized: false
 };
 
 // Connect to database
