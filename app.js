@@ -44,7 +44,7 @@ for(var line in chain){
 var httpsOptions = {
     key: fs.readFileSync('./ssl/webserver.key.pem'),
     cert: fs.readFileSync('./ssl/webserver.cert.pem'),
-    ca: ca,
+    ca: chain,
     passphrase: "cps3232",
     requestCert: true,
     rejectUnauthorized: false	
