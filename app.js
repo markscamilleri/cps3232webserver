@@ -26,25 +26,15 @@ const HTTP_PORT = 3000;
 const HTTPS_PORT = 8443;
 
 // HTTPS options
-
-var chain = fs.readFileSync('./ssl/ca-chain.cert.pem').toString();
-chain = chain.split("\n");
-var cert = [];
-
-for(var line in chain){
-    if (line.length !== 0) {
-        cert.push(line);
-        if (line.match("/-END CERTIFICATE-/")) {
-            chain.push(cert.join("\n"));
-            cert = [];
-        }
-    }
-}
+var myCert = fs.readFileSync('./ssl/webserver.cert.pem').toString();
+var ca = fs.readFileSync('./ssl/ca-chain.cert.pem').toString();
+var cert = myCert.concat("\n").concat(ca);
 
 var httpsOptions = {
     key: fs.readFileSync('./ssl/webserver.key.pem'),
-    cert: fs.readFileSync('./ssl/webserver.cert.pem'),
-    ca: chain,
+    //    cert: fs.readFileSync('./ssl/webserver.cert.pem'),
+    cert: cert,
+    ca: ca,
     passphrase: "cps3232",
     requestCert: true,
     rejectUnauthorized: false	

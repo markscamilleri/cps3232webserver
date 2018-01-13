@@ -1,5 +1,3 @@
-ssl/* #SSL Folder
-
 #Webstorm
 *.iml
 .idea*
