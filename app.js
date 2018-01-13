@@ -26,13 +26,13 @@ const HTTP_PORT = 3000;
 const HTTPS_PORT = 8443;
 
 // HTTPS options
-var myCert = fs.readFileSync('./ssl/webserver.cert.pem').toString();
+var myCert = fs.readFileSync('./ssl/sso.cert.pem').toString();
 var ca = fs.readFileSync('./ssl/ca-chain.cert.pem').toString();
 var cert = myCert.concat("\n").concat(ca);
 
 var httpsOptions = {
-    key: fs.readFileSync('./ssl/webserver.key.pem'),
-    //    cert: fs.readFileSync('./ssl/webserver.cert.pem'),
+    key: fs.readFileSync('./ssl/sso.key.pem'),
+    //    cert: fs.readFileSync('./ssl/sso.cert.pem'),
     cert: cert,
     ca: ca,
     passphrase: "cps3232",
@@ -109,11 +109,5 @@ http.createServer(function(req, res) {
 https.createServer(httpsOptions, app).listen(HTTPS_PORT, function() {
     console.log('Express HTTPS server listening on port ' + HTTPS_PORT);
 });
-
-/*
-http.createServer(app).listen(HTTP_PORT, function() {
-	console.log('Express HTTP server listening on port ' + HTTP_PORT);
-});
-*/
 
 module.exports = app;
