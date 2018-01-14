@@ -13,6 +13,8 @@ module.exports = function(app, passport, fs, upload) {
     // Process the login form
     app.post('/login', passport.authenticate('bearer', {session: false}, function(req, res) {
 
+
+
         res.json(req.user)
     }));
 
