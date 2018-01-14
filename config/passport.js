@@ -2,9 +2,11 @@
 
 // load all the things we need
 var LocalStrategy = require('passport-local').Strategy;
+var PassportOAuthBearer = require('passport-http-bearer');
 
 // load up the user model
 var User = require('../app/models/user');
+
 
 // expose this function to our app using module.exports
 module.exports = function (passport) {
@@ -110,6 +112,24 @@ module.exports = function (passport) {
             });
 
         }));
+
+
+    //BEARER
+
+    var accessTokenStrategy = new PassportOAuthBearer(function (token, done) {
+        AccessToken.findOne({token: token}).populate('user').populate('grant').exec(function (error, token) {
+            if (token && token.active && token.grant.active && token.user) {
+                done(null, token.user, {scope: token.scope});
+            } else if (!error) {
+                done(null, false);
+            } else {
+                done(error);
+            }
+        });
+    });
+
+    passport.use(accessTokenStrategy);
+
 
 };
 

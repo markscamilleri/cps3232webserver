@@ -2,6 +2,12 @@ module.exports = function(app, passport, server) {
     var oauth2model = require('./models/oauth2.js');
     var url = require('url');
 
+
+    // Get's the username if authenticated to do so
+    app.get('/api/me', 	passport.authenticate('bearer', { session: false }), function(req, res) {
+        res.json(req.user);
+    });
+
     app.get('/auth/start', function(applicationID, redirectURI, done) {
         oauth2model.Application.findOne({ oauth_id: applicationID }, function(error, application) {
             if (application) {
