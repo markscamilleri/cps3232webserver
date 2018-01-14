@@ -1,6 +1,7 @@
 var uid = require('uid2');
+var mongoose = require('mongoose');
 
-var ApplicationSchema = new Schema({
+var ApplicationSchema = new mongoose.Schema({
     title: { type: String, required: true },
     oauth_id: { type: Number, unique: true },
     oauth_secret: { type: String, unique: true, default: function() {
@@ -9,17 +10,17 @@ var ApplicationSchema = new Schema({
     },
     domains: [ { type: String } ]
 });
-var GrantCodeSchema = new Schema({
+var GrantCodeSchema = new mongoose.Schema({
     code: { type: String, unique: true, default: function() {
             return uid(24);
         }
     },
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
-    application: { type: Schema.Types.ObjectId, ref: 'Application' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    application: { type: mongoose.Schema.Types.ObjectId, ref: 'Application' },
     scope: [ { type: String } ],
     active: { type: Boolean, default: true }
 });
-var AccessTokenSchema = new Schema({
+var AccessTokenSchema = new mongoose.Schema({
     token: { type: String, unique: true, default: function() {
             return uid(124);
         }
