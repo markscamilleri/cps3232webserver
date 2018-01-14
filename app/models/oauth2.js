@@ -25,9 +25,9 @@ var AccessTokenSchema = new mongoose.Schema({
             return uid(124);
         }
     },
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
-    application: { type: Schema.Types.ObjectId, ref: 'Application' },
-    grant: { type: Schema.Types.ObjectId, ref: 'GrantCode' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    application: { type: mongoose.Schema.Types.ObjectId, ref: 'Application' },
+    grant: { type: mongoose.Schema.Types.ObjectId, ref: 'GrantCode' },
     scope: [ { type: String }],
     expires: { type: Date, default: function(){
             var today = new Date();
