@@ -12,6 +12,7 @@
             user: user,
             scope: ares.scope
         });
+
         grant.save(function (error) {
             done(error, error ? null : grant.code);
         });

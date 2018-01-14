@@ -8,8 +8,10 @@ module.exports = function(app, passport, server) {
         res.json(req.user);
     });
 
-    app.get('/auth/start', function(applicationID, redirectURI, done) {
-        oauth2model.Application.findOne({ oauth_id: applicationID }, function(error, application) {
+    app.get('/auth/start', function(req, res, done){
+	var redirectURI = req.query.redirect_uri;
+	var appID = parseInt(req.query.client_id);
+	oauth2model.Application.findOne({ oauth_id: appID }, function(error, application) {
             if (application) {
                 var match = false, uri = url.parse(redirectURI || '');
                 for (var i = 0; i < application.domains.length; i++) {
@@ -30,13 +32,11 @@ module.exports = function(app, passport, server) {
             }
         });
     }, function(req, res) {
-
         var scopeMap = {
             // ... display strings for all scope variables ...
             view_account: 'view your account',
             edit_account: 'view and edit your account'
         };
-
         res.render('oauth', {
             transaction_id: req.oauth2.transactionID,
             currentURL: req.originalUrl,
@@ -52,6 +52,7 @@ module.exports = function(app, passport, server) {
 
     app.post('/auth/finish', function(req, res, next)
     {
+	    console.log("I am in auth.finish");
         if (req.user) {
             next();
         } else {
@@ -73,6 +74,7 @@ module.exports = function(app, passport, server) {
 
     app.post('/auth/exchange', function(req, res, next)
     {
+	    console.log("In auth/exchange");
         var appID = req.body['client_id'];
         var appSecret = req.body['client_secret'];
 

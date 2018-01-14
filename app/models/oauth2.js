@@ -10,6 +10,7 @@ var ApplicationSchema = new mongoose.Schema({
     },
     domains: [ { type: String } ]
 });
+
 var GrantCodeSchema = new mongoose.Schema({
     code: { type: String, unique: true, default: function() {
             return uid(24);
@@ -20,6 +21,7 @@ var GrantCodeSchema = new mongoose.Schema({
     scope: [ { type: String } ],
     active: { type: Boolean, default: true }
 });
+
 var AccessTokenSchema = new mongoose.Schema({
     token: { type: String, unique: true, default: function() {
             return uid(124);
