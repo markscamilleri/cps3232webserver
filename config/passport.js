@@ -28,11 +28,11 @@ module.exports = function (passport) {
     });
 
     passport.use(new passportOAuth2.Strategy({
-        authorizationURL: 'https://192.168.1.12/auth/start',
-        tokenURL: 'https://192.168.1.12/auth/exchange',
+	    authorizationURL: 'https://192.168.1.12:8443/auth/start',
+        tokenURL: 'https://192.168.1.12:8443/auth/exchange',
         clientID: 'CPS3232_Photo_App',
         clientSecret: 'CPS3232_Photo_App_Secret',
-        callbackURL: 'https://192.168.1.10/photos'
+        callbackURL: 'https://192.168.1.10:8443/photos'
     }, function(accessToken, refreshToken, profile, callBack){
         User.findOrCreate({ exampleId: profile.id }, function (err, user) {
             return cb(err, user);
