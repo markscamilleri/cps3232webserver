@@ -10,18 +10,6 @@ div(class="container")
             div(class="alert alert-danger alert-dismissable fade in") #{message}
 
         form(action="/login" method="post" enctype="application/json")
-            div(class="form-group")
-                label(for="username") Username
-                input(type="text" class="form-control" name="username" id="username")
-            div(class="form-group")
-                label(for="password") Password
-                input(type="password" class="form-control" name="password" id="password")
-
+            | Click the button below to log in using single-sign on
+            | (Uses SSO from 192.168.1.10)
             button(type="submit" class="btn btn-warning btn-lg") Log in
-
-        hr
-        p Need an account?&nbsp;
-            a(href="/signup") Sign Up
-            |  or go&nbsp;
-            a(href="/") Home
-            | .

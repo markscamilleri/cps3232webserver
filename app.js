@@ -112,10 +112,4 @@ https.createServer(httpsOptions, app).listen(HTTPS_PORT, function() {
     console.log('Express HTTPS server listening on port ' + HTTPS_PORT);
 });
 
-/*
-http.createServer(app).listen(HTTP_PORT, function() {
-	console.log('Express HTTP server listening on port ' + HTTP_PORT);
-});
-*/
-
 module.exports = app;

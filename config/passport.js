@@ -27,9 +27,6 @@ module.exports = function (passport) {
         });
     });
 
-
-
-
     passport.use(new Strategy(function(token, done){
         User.findOne({token: token}, function (err, user) {
             if (err) return done(err);
