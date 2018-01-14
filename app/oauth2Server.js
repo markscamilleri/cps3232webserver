@@ -15,6 +15,7 @@ server.grant(oauth2orize.grant.code({
         done(error, error ? null : grant.code);
     });
 }));
+
 server.exchange(oauth2orize.exchange.code({
     userProperty: 'app'
 }, function(application, code, redirectURI, done) {
@@ -34,11 +35,15 @@ server.exchange(oauth2orize.exchange.code({
         }
     });
 }));
+
 server.serializeClient(function(application, done) {
     done(null, application.id);
 });
+
 server.deserializeClient(function(id, done) {
     Application.findById(id, function(error, application) {
         done(error, error ? null : application);
     });
 });
+
+module.exports = server;
