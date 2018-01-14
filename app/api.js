@@ -1,13 +1,13 @@
 module.exports = function(app, passport, server) {
-
+    var oauth2Server = require('oauth2Server.js');
     var url = require('url');
 
     app.get('/auth/start', function(applicationID, redirectURI, done) {
-        Application.findOne({ oauth_id: applicationID }, function(error, application) {
+        oauth2Server.Application.findOne({ oauth_id: applicationID }, function(error, application) {
             if (application) {
                 var match = false, uri = url.parse(redirectURI || '');
                 for (var i = 0; i < application.domains.length; i++) {
-                    if (uri.host == application.domains[i] || (uri.protocol == application.domains[i] && uri.protocol != 'http' && uri.protocol != 'https')) {
+                    if (uri.host === application.domains[i] || (uri.protocol === application.domains[i] && uri.protocol !== 'http' && uri.protocol !== 'https')) {
                         match = true;
                         break;
                     }
@@ -67,7 +67,7 @@ module.exports = function(app, passport, server) {
         var appID = req.body['client_id'];
         var appSecret = req.body['client_secret'];
 
-        Application.findOne({ oauth_id: appID, oauth_secret: appSecret }, function(error, application) {
+        oauth2Server.Application.findOne({ oauth_id: appID, oauth_secret: appSecret }, function(error, application) {
             if (application) {
                 req.app = application;
                 next();

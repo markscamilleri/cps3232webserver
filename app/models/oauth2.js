@@ -45,3 +45,9 @@ var AccessTokenSchema = new Schema({
 var Application = mongoose.model('Application', ApplicationSchema);
 var GrantCode = mongoose.model('GrantCode', GrantCodeSchema);
 var AccessToken = mongoose.model('AccessToken', AccessTokenSchema);
+
+module.exports = {
+    Application: Application,
+    GrantCode: GrantCode,
+    AccessToken: AccessToken
+};
