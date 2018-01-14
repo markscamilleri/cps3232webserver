@@ -22,7 +22,7 @@
     }, function (application, code, redirectURI, done) {
         oauth2model.GrantCode.findOne({code: code}, function (error, grant) {
             if (grant && grant.active && grant.application == application.id) {
-                var token = new AccessToken({
+                var token = new oauth2model.AccessToken({
                     application: grant.application,
                     user: grant.user,
                     grant: grant,

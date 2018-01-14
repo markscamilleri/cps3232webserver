@@ -50,7 +50,8 @@ module.exports = function(app, passport, server) {
     });
 
 
-    app.post('/auth/finish', function(req, res, next) {
+    app.post('/auth/finish', function(req, res, next)
+    {
         if (req.user) {
             next();
         } else {
@@ -69,7 +70,9 @@ module.exports = function(app, passport, server) {
         done(null, { scope: req.oauth2.req.scope });
     }));
 
-    app.post('/auth/exchange', function(req, res, next){
+
+    app.post('/auth/exchange', function(req, res, next)
+    {
         var appID = req.body['client_id'];
         var appSecret = req.body['client_secret'];
 
