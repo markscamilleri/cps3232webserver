@@ -1,9 +1,9 @@
 module.exports = function(app, passport, server) {
-    var oauth2Server = require('./oauth2Server.js');
+    var oauth2model = require('./models/oauth2.js');
     var url = require('url');
 
     app.get('/auth/start', function(applicationID, redirectURI, done) {
-        oauth2Server.Application.findOne({ oauth_id: applicationID }, function(error, application) {
+        oauth2model.Application.findOne({ oauth_id: applicationID }, function(error, application) {
             if (application) {
                 var match = false, uri = url.parse(redirectURI || '');
                 for (var i = 0; i < application.domains.length; i++) {
@@ -67,7 +67,7 @@ module.exports = function(app, passport, server) {
         var appID = req.body['client_id'];
         var appSecret = req.body['client_secret'];
 
-        oauth2Server.Application.findOne({ oauth_id: appID, oauth_secret: appSecret }, function(error, application) {
+        oauth2model.Application.findOne({ oauth_id: appID, oauth_secret: appSecret }, function(error, application) {
             if (application) {
                 req.app = application;
                 next();
