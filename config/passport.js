@@ -1,7 +1,7 @@
 // config/passport.js
 
 // load all the things we need
-var Strategy = require('passport-http-bearer').Strategy;
+var passportOAuth2 = require('passport-oauth2');
 
 // load up the user model
 var User = require('../app/models/user');
@@ -27,14 +27,17 @@ module.exports = function (passport) {
         });
     });
 
-    passport.use(new Strategy(function(token, done){
-        User.findOne({token: token}, function (err, user) {
-            if (err) return done(err);
-            if (!user) return done(null, false);
-            return done(null, user, {scope: 'all'})
-        })
+    passport.use(new passportOAuth2.Strategy({
+        authorizationURL: 'https://192.168.1.12/auth/start',
+        tokenURL: 'https://192.168.1.12/auth/exchange',
+        clientID: 'CPS3232_Photo_App',
+        clientSecret: 'CPS3232_Photo_App_Secret',
+        callbackURL: 'https://192.168.1.10/photos'
+    }, function(accessToken, refreshToken, profile, callBack){
+        User.findOrCreate({ exampleId: profile.id }, function (err, user) {
+            return cb(err, user);
+        });
     }));
-
 };
 
 

@@ -11,15 +11,10 @@ module.exports = function(app, passport, fs, upload) {
     });
 
     // Process the login form
-    app.post('/login', passport.authenticate('bearer', {session: false}, function(req, res) {
-
-
-
-        res.json(req.user)
-    }));
+    app.post('/login', passport.authenticate('oauth2'));
 
     // Photos page
-    app.get('/photos', isLoggedIn, function(req, res) {
+    app.get('/photos',   passport.authenticate('oauth2', { failureRedirect: '/login' }), function(req, res) {
         res.render('photos', {
             rows: arrayOfN(fs.readdirSync('/images/' + req.user), 4),
             message: req.flash('uploadMessage'),
