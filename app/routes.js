@@ -11,10 +11,8 @@ module.exports = function(app, passport, fs) {
     });
 
     // Process the login form
-    app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/login', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
+    app.post('/login', passport.authenticate('bearer', {session: false}, function(req, res) {
+        res.json({username: req.user.username})
     }));
 
     // Photos page
@@ -27,8 +25,12 @@ module.exports = function(app, passport, fs) {
     });
 
     app.post('/photos', isLoggedIn, function (req, res) {
+        if (!fs.existsSync('./images/' + req.user)){
+            fs.mkdirSync('./images/' + req.user);
+        }
+
         var tempPath = req.files.file.path,
-            targetPath = path.resolve('./uploads/image.png');
+            targetPath = path.resolve('./images/' + req.user + '/' + req.files.file.name);
         if (arrayIncludes(['.png', '.jpg', '.gif'], path.extname(req.files.file.name).toLowerCase())) {
             fs.rename(tempPath, targetPath, function(err) {
                 if (err) throw err;
