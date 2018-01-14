@@ -1,0 +1,24 @@
+include utils/head
+include utils/bodyWithMenu
+
+div.container
+    div.page-header.text-center
+        h1
+            span.fa.fa-anchor Phtoos Page
+        |  &nbsp;
+        a(href="/logout").btn.btn-default.btn-sm Logout
+
+        // show any messages that come back with upload
+        if(message.length > 0)
+            div(class="alert alert-dismissable fade in") #{message}
+
+div.container
+    form(method="post" enctype="multipart/form-data" action="/photos")
+        | Upload picture
+        input(type="file" name="file")
+        input(type="submit" value="Submit")
+
+    for galleryrow in rows
+        div.row
+            for file in galleryrow
+                +gallery-image(file)

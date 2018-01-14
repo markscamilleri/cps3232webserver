@@ -26,13 +26,12 @@ const HTTP_PORT = 3000;
 const HTTPS_PORT = 8443;
 
 // HTTPS options
-var myCert = fs.readFileSync('./ssl/webserver.cert.pem').toString();
+var myCert = fs.readFileSync('./ssl/photos.cert.pem').toString();
 var ca = fs.readFileSync('./ssl/ca-chain.cert.pem').toString();
 var cert = myCert.concat("\n").concat(ca);
 
 var httpsOptions = {
-    key: fs.readFileSync('./ssl/webserver.key.pem'),
-    //    cert: fs.readFileSync('./ssl/webserver.cert.pem'),
+    key: fs.readFileSync('./ssl/photos.key.pem'),
     cert: cert,
     ca: ca,
     passphrase: "cps3232",
@@ -76,6 +75,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(express.bodyParser({uploadDir:'/app/files'}));
 
 
 // Routes

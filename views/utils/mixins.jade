@@ -30,3 +30,9 @@ mixin nav_divider
 mixin nav_header
     li.dropdown-header
         block
+
+mixin gallery-image(src)
+    div.col-md-4
+        div.thumbnail
+            a(href=src)
+            img.img-rounded.img-responsive(src=src)

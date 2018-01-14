@@ -1,4 +1,4 @@
-module.exports = function(app, passport) {
+module.exports = function(app, passport, fs) {
 
     // Home Page
     app.get('/', function(req, res) {
@@ -17,24 +17,28 @@ module.exports = function(app, passport) {
         failureFlash : true // allow flash messages
     }));
 
-    // Signup page
-    app.get('/signup', function (req, res) {
-        res.render(('signup'), {message: req.flash('signupMessage')});
+    // Photos page
+    app.get('/photos', isLoggedIn, function(req, res) {
+        res.render('photos', {
+            rows: arrayOfN(fs.readdirSync('/images/' + req.user), 4),
+            message: req.flash('uploadMessage'),
+            user: req.user // get the user out of session and pass to template
+        });
     });
 
-    // Process the signup form
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flsash messages
-    }));
+    app.post('/photos', isLoggedIn, function (req, res) {
+        var tempPath = req.files.file.path,
+            targetPath = path.resolve('./uploads/image.png');
+        if (arrayIncludes(['.png', '.jpg', '.gif'], path.extname(req.files.file.name).toLowerCase())) {
+            fs.rename(tempPath, targetPath, function(err) {
+                if (err) throw err;
+                res.flash('uploadMessage', 'Upload successful');
+            });
+        } else {
+            res.flash('uploadMessage', 'Upload was not png, jpg or gif');
+        }
 
-
-    // Profile page
-    app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile', {
-            user : req.user // get the user out of session and pass to template
-        });
+        res.redirect('/photos')
     });
 
     // Logout
@@ -53,4 +57,33 @@ function isLoggedIn(req, res, next) {
 
     // if they aren't redirect them to the home page
     res.redirect('/');
+}
+
+
+function arrayOfN(elements, n) {
+    var toReturn = [];
+    elements.reverse();
+
+    while(elements.length > 0) {
+        var row = [];
+        for (var j = 0; j < n; j++) {
+            if (elements.length === 0)
+                break;
+            else {
+                row.push(elements.pop());
+            }
+        }
+        toReturn.push(row);
+    }
+
+    return toReturn;
+}
+
+function arrayIncludes(array, toCheck) {
+    for(var elem in array){
+        if(elem === toCheck)
+            return true;
+    }
+
+    return false;
 }
