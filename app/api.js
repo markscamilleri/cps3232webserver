@@ -31,7 +31,7 @@ module.exports = function(app, passport, server) {
             edit_account: 'view and edit your account'
         };
 
-        res.render('oauth.jade', {
+        res.render('oauth', {
             transaction_id: req.oauth2.transactionID,
             currentURL: req.originalUrl,
             response_type: req.query.response_type,
