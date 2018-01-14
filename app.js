@@ -61,7 +61,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 // Routes
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
-var oauth2server = require('./app/oauth2Server.js')(); // OAuth2 server
+var oauth2server = require('./app/oauth2Server.js'); // OAuth2 server
 require('./app/api.js')(app, passport, oauth2server); //load api and pass app to it;
 
 require('./https.js')(app); //load https server
