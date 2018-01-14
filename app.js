@@ -18,6 +18,8 @@ var passportConfig = require('./config/passport')(passport); // pass passport fo
 
 var app = express();
 
+const HTTPS_PORT = 8443;
+
 // Connect to database
 mongoose.connect(configDB.url);
 
