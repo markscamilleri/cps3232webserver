@@ -1,7 +1,7 @@
 var oauth2orize = require('oauth2orize');
 
 // OAuth2 stuff
-var oauth2server = oauth2orize.createServer();
+var server = oauth2orize.createServer();
 
 server.grant(oauth2orize.grant.code({
     scopeSeparator: [ ' ', ',' ]
