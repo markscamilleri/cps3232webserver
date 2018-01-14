@@ -1,4 +1,4 @@
-var oauth2orize = require('oauth2rize');
+var oauth2orize = require('oauth2orize');
 
 // OAuth2 stuff
 var oauth2server = oauth2orize.createServer();
