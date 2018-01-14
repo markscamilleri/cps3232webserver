@@ -17,7 +17,7 @@
         });
     }));
 
-    server.exchan2ge(oauth2orize.exchange.code({
+    server.exchange(oauth2orize.exchange.code({
         userProperty: 'app'
     }, function (application, code, redirectURI, done) {
         oauth2model.GrantCode.findOne({code: code}, function (error, grant) {
