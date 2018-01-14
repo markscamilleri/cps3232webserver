@@ -1,5 +1,5 @@
 module.exports = function(app, passport, server) {
-    var oauth2Server = require('oauth2Server.js');
+    var oauth2Server = require('./oauth2Server.js');
     var url = require('url');
 
     app.get('/auth/start', function(applicationID, redirectURI, done) {
