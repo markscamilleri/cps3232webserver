@@ -1,7 +1,7 @@
-module.exports = function(app, passport, fs) {
-
+module.exports = function(app, passport, fs, upload) {
     // Home Page
     app.get('/', function(req, res) {
+	    console.log("Am Here");
         res.render(('index'));
     });
 
@@ -24,7 +24,7 @@ module.exports = function(app, passport, fs) {
         });
     });
 
-    app.post('/photos', isLoggedIn, function (req, res) {
+    app.post('/photos', isLoggedIn, upload.single('file'), function (req, res) {
         if (!fs.existsSync('./images/' + req.user)){
             fs.mkdirSync('./images/' + req.user);
         }
