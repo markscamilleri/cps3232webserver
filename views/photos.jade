@@ -15,10 +15,10 @@ div.container
 div.container
     form(method="post" enctype="multipart/form-data" action="/photos")
         | Upload picture
-        input(type="file" name="file")
+        input(type="file" name="file" id="file")
         input(type="submit" value="Submit")
 
     for galleryrow in rows
         div.row
             for file in galleryrow
-                +gallery-image(file)
+                +gallery-image('./images/markscamilleri/' + file)
