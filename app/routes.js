@@ -4,7 +4,6 @@ module.exports = function (app, passport, fs) {
 
     // Home Page
     app.get('/', function (req, res) {
-        console.log("Am Here");
         res.render(('index'));
     });
 
