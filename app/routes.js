@@ -41,6 +41,16 @@ module.exports = function(app, passport, fs, upload) {
         res.redirect('/photos')
     });
 
+    app.get('/api/photos', isLoggedIn, function(req, res) {
+        var dir = fs.readdirSync('/images/' + req.user);
+        var images = [];
+        for(file in dir){
+            images.push(fs.readFileSync(file));
+        }
+
+        res.body = images;
+    });
+
     // Logout
     app.get('/logout', function(req, res) {
         req.logout();
