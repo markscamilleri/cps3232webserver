@@ -45,10 +45,14 @@ module.exports = function(app, passport, fs, upload) {
         var dir = fs.readdirSync('/images/' + req.user);
         var images = [];
         for(file in dir){
-            images.push(fs.readFileSync(file));
+            images.push(file);
         }
 
         res.body = images;
+    });
+
+    app.get('/api/photo/:file', passport.authenticate('oauth2', { failureRedirect: '/login' }), function(req, res) {
+        res.body = fs.readFileSync(req.params.file);
     });
 
     // Logout
