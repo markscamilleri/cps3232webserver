@@ -41,7 +41,7 @@ module.exports = function(app, passport, fs, upload) {
         res.redirect('/photos')
     });
 
-    app.get('/api/photos', isLoggedIn, function(req, res) {
+    app.get('/api/photos', passport.authenticate('oauth2', { failureRedirect: '/login' }), function(req, res) {
         var dir = fs.readdirSync('/images/' + req.user);
         var images = [];
         for(file in dir){
