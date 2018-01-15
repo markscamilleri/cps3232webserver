@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"cps3232.accesstokens"},{"v":1,"unique":true,"key":{"token":1},"name":"token_1","ns":"cps3232.accesstokens","background":true}]}
