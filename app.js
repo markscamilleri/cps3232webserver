@@ -13,9 +13,6 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 
-// Database stuff
-var configDB = require('./config/database.js');
-
 // Passport Stuff
 var passportConfig = require('./config/passport')(passport); // pass passport for configuration
 
@@ -42,9 +39,6 @@ var httpsOptions = {
     rejectUnauthorized: false	
 };
 
-// Connect to database
-// mongoose.connect(configDB.url);
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -62,15 +56,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: 'thisismysecretPhotos123' ,
     cookie: { maxAge: 2628000000 },
-    // store: new (require('express-sessions'))({
-    //     storage: 'mongodb',
-    //     instance: mongoose, // optional
-    //     host: 'localhost', // optional
-    //     port: 27017, // optional
-    //     db: 'cps3232 ', // optional
-    //     collection: 'sessions', // optional
-    //     expire: 86400 // optional
-    // }),
     resave: true,
     saveUninitialized: true
 }));

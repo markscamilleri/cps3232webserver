@@ -30,9 +30,9 @@ module.exports = function (passport) {
     passport.use(new passportOAuth2.Strategy({
 	    authorizationURL: 'https://192.168.1.12:8443/auth/start',
         tokenURL: 'https://192.168.1.12:8443/auth/exchange',
-        clientID: '323210379749',
-        clientSecret: 'CPS3232_Photo_App_Secret',
-        callbackURL: 'https://192.168.1.10:8443/photos'
+        clientID: '323211379749',
+        clientSecret: 'CPS3232_Printer_App_Secret',
+        callbackURL: 'https://192.168.1.13:8443/photos'
     }, function(accessToken, refreshToken, profile, callBack){
         User.findOrCreate({ exampleId: profile.id }, function (err, user) {
             return cb(err, user);
