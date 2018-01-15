@@ -13,12 +13,8 @@ div.container
             div(class="alert alert-dismissable fade in") #{message}
 
 div.container
-    form(method="post" enctype="multipart/form-data" action="/photos")
-        | Upload picture
-        input(type="file" name="file")
-        input(type="submit" value="Submit")
-
-    for galleryrow in rows
-        div.row
-            for file in galleryrow
-                +gallery-image(file)
+    h2 Click the photo file name you want to print
+    ul
+        for file in files
+            li
+                a(href="/print?"+ #{file}) #{file}

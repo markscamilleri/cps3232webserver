@@ -31,8 +31,8 @@ mixin nav_header
     li.dropdown-header
         block
 
-mixin gallery-image(src)
+mixin gallery-image(src, href)
     div.col-md-4
         div.thumbnail
-            a(href=src)
+            a(href="/print/"+ href)
             img.img-rounded.img-responsive(src=src)
