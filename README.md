@@ -7,6 +7,6 @@ To install this server, make sure you have NodeJS and NPM installed then run
     npm start
 
 The server will start at port 8443
-The certificates are for the IP address 192.168.1.10
+The certificates are set for the IP address 192.168.1.10
 
 
